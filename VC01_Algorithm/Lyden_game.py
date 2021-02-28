@@ -43,7 +43,7 @@ def arrayToDrawing():
             if  grid[Y][X] == 1:
                 coin = canvas.create_image(x1+20, y1+20, image = coins)
             elif grid[Y][X] == 2:
-                player = canvas.create_image(x1+20, y1+20, image = me)
+                player = canvas.create_image(x1+20, y1+20, image = playeR)
             elif grid[Y][X] == 3:
                 monster = canvas.create_image(x1+20, y1+20, image = zombies)
             elif  grid[Y][X] == 4:
@@ -59,8 +59,6 @@ def player(grid):
                 position = [index1, index2]
     return position
 #-----------------------------MONSTER MOVE-----------------------------
-
-
 
 #-----------------------------PLAYER MOVE-----------------------------
 def moveRight(event):
@@ -128,11 +126,10 @@ def moveDown(event):
 
 
 #-----------------------------UPDATE SCORE-----------------------------
-me = tk.PhotoImage( file="maleAdventurer_walk1.png" )
+playeR = tk.PhotoImage( file="maleAdventurer_walk1.png" )
 zombies = tk.PhotoImage( file="zombies.png" )
 coins = tk.PhotoImage( file = "coinGold.png" )
 walls = tk.PhotoImage( file = "bestwall.png" )
-
 
 root.bind("<Left>", moveLeft) #LEFT CLICK
 root.bind("<Right>", moveRight)  #RIGHT CLICK
