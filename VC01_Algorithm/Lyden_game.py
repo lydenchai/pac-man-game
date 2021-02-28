@@ -37,8 +37,7 @@ score = 0
 end = False
 #-----------------------------FUNCTION-----------------------------
 def arrayToDrawing():
-    # global score
-    # myScore = 'SCORE:'+str(score)
+    global score
     for Y in range (len(grid)):
         for X in range  (len(grid[Y])):
             x1 = (X * 50)
@@ -53,11 +52,9 @@ def arrayToDrawing():
                 monster = canvas.create_image(x1+20, y1+20, image = zombies)
             elif  grid[Y][X] == 4:
                 canvas.create_rectangle(x1,y1,x2,y2, fill = "", outline = "")
-            
             else:
-                # canvas.create_rectangle(x1,y1,x2,y2, fill = "blue", outline = "")
                 canvas.create_image(x1+20, y1+20, image = walls)
-    # canvas.create_text(425,980, text = myScore, font=("Comic Sans", 25))
+    canvas.create_text(425,980, text = "Score: "+str(score), font=("Comic Sans", 25))
 def player(grid):
     for index1 in range(len(grid)):
         for index2 in range (len(grid[index1])):
@@ -73,12 +70,10 @@ def endGame():
 def show_score():
     global score,end
     myScore = 'Score:'+str(score)
-    if not end:
-        canvas.create_text(425,980, text = myScore, font=("Comic Sans", 25))
-    else:
-        end=False
+    if end:
+        canvas.delete('all')
         canvas.create_text(420,350, text = "Game Over!",fill = "red", font  =("Comic Sans", 50))
-        canvas.create_text(410,440, text = "You"+" "+myScore, font=("Comic Sans", 25))
+        canvas.create_text(410,440, text = "Your"+" "+myScore, font=("Comic Sans", 25))
 #-----------------------------MONSTER MOVE-----------------------------
 
 #-----------------------------PLAYER MOVE-----------------------------
@@ -96,7 +91,6 @@ def moveRight(event):
                 end = True
                 endGame()
             if not end:
-
                 grid[positionY][positionX+1] = 2
         
     canvas.delete("all")
@@ -117,6 +111,7 @@ def moveLeft(event):
                 endGame()
             if not end:
                 grid[positionY][positionX-1] = 2
+
     canvas.delete("all")
     arrayToDrawing()
     show_score()
@@ -135,6 +130,7 @@ def moveUp(event):
                 endGame()
             if not end:
                 grid[positionY-1][positionX] = 2
+
     canvas.delete("all")
     arrayToDrawing()
     show_score()
@@ -154,17 +150,16 @@ def moveDown(event):
                 endGame()
             if not end:
                 grid[positionY+1][positionX] = 2
+
     canvas.delete("all")
     arrayToDrawing()
     show_score()
-#-----------------------------START GAME-----------------------------
 
 #-----------------------------UPDATE SCORE-----------------------------
 playeR = tk.PhotoImage( file="maleAdventurer_walk1.png" )
 zombies = tk.PhotoImage( file="zombies.png" )
 coins = tk.PhotoImage( file = "coinGold.png" )
 walls = tk.PhotoImage( file = "bestwall.png" )
-
 
 root.bind("<Left>", moveLeft) #LEFT CLICK
 root.bind("<Right>", moveRight)  #RIGHT CLICK
