@@ -78,7 +78,7 @@ def show_score():
     else:
         end=False
         canvas.create_text(420,350, text = "Game Over!",fill = "red", font  =("Comic Sans", 50))
-        canvas.create_text(410,440, text = "You Get"+" "+myScore, font=("Comic Sans", 25))
+        canvas.create_text(410,440, text = "You"+" "+myScore, font=("Comic Sans", 25))
 #-----------------------------MONSTER MOVE-----------------------------
 
 #-----------------------------PLAYER MOVE-----------------------------
@@ -158,8 +158,6 @@ def moveDown(event):
     arrayToDrawing()
     show_score()
 #-----------------------------START GAME-----------------------------
-
-
 
 #-----------------------------UPDATE SCORE-----------------------------
 playeR = tk.PhotoImage( file="maleAdventurer_walk1.png" )
