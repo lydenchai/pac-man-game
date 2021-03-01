@@ -162,11 +162,14 @@ def enemyMove():
                 elif grid[rIndex+1][cIndex] !=2 and grid[rIndex+1][cIndex] == 1:
                     grid[rIndex+1][cIndex] = 3
                     grid[rIndex][cIndex] = 1
-
     canvas.delete("all")
     arrayToDrawing()
     canvas.after(400,enemyMove)
-    
+    if end:
+        endGame()
+        show_score()
+        
+
 #----------------------------- PLAYER MOVE-----------------------------
 def moveRight(event):
     global grid, score, end,  win
@@ -178,7 +181,6 @@ def moveRight(event):
             grid[positionY][positionX] = 4
             if grid[positionY][positionX+1] == 1:
                 score += 1
-                end = False
             if grid[positionY][positionX+1] == 3:
                 end = True
                 endGame()
@@ -191,7 +193,7 @@ def moveRight(event):
     playerWin()
     
 def moveLeft(event):
-    global grid, score, end
+    global grid, score, end, win
     if not end:
         position = player(grid)
         positionY = position[0]
@@ -212,7 +214,7 @@ def moveLeft(event):
     playerWin()
 
 def moveUp(event):
-    global grid, score, end
+    global grid, score, end, win
     if not end:
         position = player(grid)
         positionY = position[0]
@@ -233,7 +235,7 @@ def moveUp(event):
     playerWin()
 
 def moveDown(event):
-    global grid, score, end
+    global grid, score, end, win
     if not end:
         position = player(grid)
         positionY= position[0]
