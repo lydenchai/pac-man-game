@@ -1,6 +1,7 @@
 #-----------------------------IMPORTS-----------------------------
 import tkinter as tk
 import random
+
 #-----------------------------CONSTANTS-----------------------------
 root = tk.Tk()
 root.title("Lyden_VC01_Game")
@@ -10,28 +11,29 @@ canvas = tk.Canvas(root)
 #-----------------------------VARIABLES-----------------------------
 grid= [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 3, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 3, 0],
     [0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0],
     [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
     [0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0],
     [0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0],
-    [0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 3, 0, 0],
+    [0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0],
     [0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0],
     [0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0],
-    [0, 0, 0, 0, 1, 0, 1, 1, 2, 1, 1, 0, 1, 0, 0, 1, 0],
-    [0, 0, 3, 0, 1, 0, 1, 0, 4, 0, 1, 0, 1, 0, 0, 1, 0],
+    [0, 0, 0, 0, 3, 0, 1, 1, 2, 1, 1, 0, 1, 0, 0, 3, 0],
+    [0, 0, 0, 0, 1, 0, 1, 0, 4, 0, 1, 0, 1, 0, 0, 1, 0],
     [0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0],
     [0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0],
     [0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0],
     [0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0],
     [0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0],
-    [0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 1, 0, 0, 0, 0, 0, 1, 0, 3, 0, 0, 0, 0, 0, 1, 0],
+    [0, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
 win = False
 score = 0
 end = False
+tomove = []
 
                 #----------NOTE---------#
                 #       0 = walls       #
@@ -60,16 +62,17 @@ def arrayToDrawing():
                 canvas.create_rectangle(x1,y1,x2,y2, fill = "", outline = "")
             else:
                 canvas.create_image(x1+20, y1+20, image = walls)
-    canvas.create_text(425,970, text = "Score: "+str(score), font=("Comic Sans", 25))
+
+    canvas.create_text(425,970, text = "Score: "+str(score),fill = "green" ,font=("Comic Sans", 25))
 
 def player(grid):
     for index1 in range(len(grid)):
         for index2 in range (len(grid[index1])):
             if grid[index1][index2] == 2:
                 position = [index1, index2]
-    return position
-#-----------------------------START GAME-----------------------------
 
+    return position
+    
 #-----------------------------END GAME-----------------------------
 def endGame():
     global grid 
@@ -87,14 +90,84 @@ def show_score():
 #-----------------------------PLAYER WIN-----------------------------
 def playerWin():
     global score 
-    if score == 159 and not end:
+    if score == 152 and not end:
         canvas.delete("all")
         gameWin = canvas.create_image(425, 320, image = youWin)
         canvas.create_text(440,470, text = "You Win!", font=("Comic Sans", 50))
 
 #-----------------------------MONSTER MOVE-----------------------------
+def indexOfenemy(grid):
+    indexEnemy = []
+    for index in range (len(grid)):
+        for inline in range(len(grid[index])):
+            if grid[index][inline] == 3:
+                indexEnemy.append([index, inline])
+    return indexEnemy
 
-#-----------------------------PLAYER MOVE-----------------------------
+def canMove(grid, r, c):
+    global tomove
+    tomove = []
+    if grid[r][c-1] != 0 and grid[r][c-1] != 3:
+        tomove.append("left")
+    if grid[r][c]+1 != 0 and grid[r][c+1] != 3:
+        tomove.append("right")
+    if grid[r-1][c] != 0  and grid[r-1][c] != 3:
+        tomove.append("up")
+    if grid[r+1][c] != 0 and grid[r+1][c] != 3:
+        tomove.append("down")
+    return tomove
+
+def enemyMove():
+    global grid, tomove, end
+    enemyIndex = indexOfenemy(grid)
+    for enemy in enemyIndex:
+        rIndex = enemy[0]
+        cIndex = enemy[1]
+        whereToMove = canMove(grid, rIndex, cIndex)
+        if len(whereToMove) > 0:
+            tomove = random.choice(whereToMove)
+            if tomove =="right":
+                if grid[rIndex+1][cIndex] == 2:
+                    end = True
+                elif grid[rIndex][cIndex+1] !=2 and grid[rIndex][cIndex+1] == 4:
+                    grid[rIndex][cIndex+1] = 3
+                    grid[rIndex][cIndex] = 4
+                elif grid[rIndex][cIndex+1] !=2 and grid[rIndex][cIndex+1] == 1:
+                    grid[rIndex][cIndex+1] = 3
+                    grid[rIndex][cIndex] = 1
+            if tomove =="left":
+                if grid[rIndex-1][cIndex] == 2:
+                    end = True
+                elif grid[rIndex][cIndex-1] !=2 and grid[rIndex][cIndex-1] == 4:
+                    grid[rIndex][cIndex-1] = 3
+                    grid[rIndex][cIndex] = 4
+                elif grid[rIndex][cIndex-1] !=2 and grid[rIndex][cIndex-1] == 1:
+                    grid[rIndex][cIndex-1] = 3
+                    grid[rIndex][cIndex] = 1
+            if tomove =="up":
+                if grid[rIndex-1][cIndex] == 2:
+                    end = True
+                elif grid[rIndex-1][cIndex] !=2 and grid[rIndex-1][cIndex] == 4:
+                    grid[rIndex-1][cIndex] = 3
+                    grid[rIndex][cIndex] = 4
+                elif grid[rIndex-1][cIndex] !=2 and grid[rIndex-1][cIndex] == 1:
+                    grid[rIndex-1][cIndex] = 3
+                    grid[rIndex][cIndex] = 1
+            if tomove =="down":
+                if grid[rIndex+1][cIndex] == 2:
+                    end = True
+                elif grid[rIndex+1][cIndex] !=2 and grid[rIndex+1][cIndex] == 4:
+                    grid[rIndex+1][cIndex] = 3
+                    grid[rIndex][cIndex] = 4
+                elif grid[rIndex+1][cIndex] !=2 and grid[rIndex+1][cIndex] == 1:
+                    grid[rIndex+1][cIndex] = 3
+                    grid[rIndex][cIndex] = 1
+
+    canvas.delete("all")
+    arrayToDrawing()
+    canvas.after(400,enemyMove)
+    
+#----------------------------- PLAYER MOVE-----------------------------
 def moveRight(event):
     global grid, score, end,  win
     if not end:
@@ -179,6 +252,7 @@ def moveDown(event):
     arrayToDrawing()
     show_score()
     playerWin()
+
 #-----------------------------IMAGE-----------------------------
 playeR = tk.PhotoImage( file="maleAdventurer_walk1.png" )
 zombies = tk.PhotoImage( file="zombies.png" )
@@ -192,6 +266,7 @@ root.bind("<Right>", moveRight)  #RIGHT CLICK
 root.bind("<Up>", moveUp) #Up CLICK
 root.bind("<Down>", moveDown)  #Down CLICK
 
+enemyMove()
 arrayToDrawing()
 canvas.pack(expand=True, fill="both")
 root.mainloop()
