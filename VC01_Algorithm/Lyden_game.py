@@ -31,8 +31,8 @@ grid= [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ]
 win = False
-score = 0
 end = False
+score = 0
 tomove = []
 
                 #----------NOTE---------#
@@ -53,7 +53,7 @@ def arrayToDrawing():
             y1 = (Y * 50)
             y2 = 50 + y1
             if  grid[Y][X] == 1:
-                coin = canvas.create_image(x1+20, y1+20, image = coins)
+                coin = canvas.create_image(x1+20, y1+20, image = coins) 
             elif grid[Y][X] == 2:
                 player = canvas.create_image(x1+20, y1+20, image = playeR)
             elif grid[Y][X] == 3:
@@ -72,29 +72,26 @@ def player(grid):
                 position = [index1, index2]
 
     return position
-    
+
 #-----------------------------END GAME-----------------------------
 def endGame():
     global grid 
     grid = []
     arrayToDrawing()
-
+ 
+#-----------------------------PLAYER WIN-----------------------------
 def show_score():
     global score,end
-    myScore = 'Score:'+str(score)
+    myScore = "Score:"+str(score)
     if end:
         canvas.delete('all')
-        gameOver = canvas.create_image(420, 320, image = endgame)
-        canvas.create_text(410,440, text = "Your"+" "+myScore, font=("Comic Sans", 25))
-
-#-----------------------------PLAYER WIN-----------------------------
-def playerWin():
-    global score 
-    if score == 152 and not end:
-        canvas.delete("all")
-        gameWin = canvas.create_image(425, 320, image = youWin)
-        canvas.create_text(440,470, text = "You Win!", font=("Comic Sans", 50))
-
+        if score != 10:
+            gameOver = canvas.create_image(420, 320, image = endgame)
+            canvas.create_text(410,440, text = "Your"+" "+myScore, font=("Comic Sans", 25))
+        else:
+            gameWin = canvas.create_image(425, 320, image = youWin)
+            canvas.create_text(440,470, text = "You Win!", font=("Comic Sans", 50))
+        
 #-----------------------------MONSTER MOVE-----------------------------
 def indexOfenemy(grid):
     indexEnemy = []
@@ -132,34 +129,34 @@ def enemyMove():
                 elif grid[rIndex][cIndex+1] !=2 and grid[rIndex][cIndex+1] == 4:
                     grid[rIndex][cIndex+1] = 3
                     grid[rIndex][cIndex] = 4
-                elif grid[rIndex][cIndex+1] !=2 and grid[rIndex][cIndex+1] == 1:
+                elif grid[rIndex][cIndex+1] != 2 and grid[rIndex][cIndex+1] == 1:
                     grid[rIndex][cIndex+1] = 3
                     grid[rIndex][cIndex] = 1
             if tomove =="left":
                 if grid[rIndex-1][cIndex] == 2:
                     end = True
-                elif grid[rIndex][cIndex-1] !=2 and grid[rIndex][cIndex-1] == 4:
+                elif grid[rIndex][cIndex-1] != 2 and grid[rIndex][cIndex-1] == 4:
                     grid[rIndex][cIndex-1] = 3
                     grid[rIndex][cIndex] = 4
-                elif grid[rIndex][cIndex-1] !=2 and grid[rIndex][cIndex-1] == 1:
+                elif grid[rIndex][cIndex-1] != 2 and grid[rIndex][cIndex-1] == 1:
                     grid[rIndex][cIndex-1] = 3
                     grid[rIndex][cIndex] = 1
             if tomove =="up":
                 if grid[rIndex-1][cIndex] == 2:
                     end = True
-                elif grid[rIndex-1][cIndex] !=2 and grid[rIndex-1][cIndex] == 4:
+                elif grid[rIndex-1][cIndex] !=  2 and grid[rIndex-1][cIndex] == 4:
                     grid[rIndex-1][cIndex] = 3
                     grid[rIndex][cIndex] = 4
-                elif grid[rIndex-1][cIndex] !=2 and grid[rIndex-1][cIndex] == 1:
+                elif grid[rIndex-1][cIndex] != 2 and grid[rIndex-1][cIndex] == 1:
                     grid[rIndex-1][cIndex] = 3
                     grid[rIndex][cIndex] = 1
             if tomove =="down":
                 if grid[rIndex+1][cIndex] == 2:
                     end = True
-                elif grid[rIndex+1][cIndex] !=2 and grid[rIndex+1][cIndex] == 4:
+                elif grid[rIndex+1][cIndex] != 2 and grid[rIndex+1][cIndex] == 4:
                     grid[rIndex+1][cIndex] = 3
                     grid[rIndex][cIndex] = 4
-                elif grid[rIndex+1][cIndex] !=2 and grid[rIndex+1][cIndex] == 1:
+                elif grid[rIndex+1][cIndex] != 2 and grid[rIndex+1][cIndex] == 1:
                     grid[rIndex+1][cIndex] = 3
                     grid[rIndex][cIndex] = 1
     canvas.delete("all")
@@ -181,6 +178,9 @@ def moveRight(event):
             grid[positionY][positionX] = 4
             if grid[positionY][positionX+1] == 1:
                 score += 1
+            if score == 153:
+                end = True
+                endGame()
             if grid[positionY][positionX+1] == 3:
                 end = True
                 endGame()
@@ -190,7 +190,6 @@ def moveRight(event):
     canvas.delete("all")
     arrayToDrawing()
     show_score()
-    playerWin()
     
 def moveLeft(event):
     global grid, score, end, win
@@ -202,6 +201,9 @@ def moveLeft(event):
             grid[positionY][positionX] = 4
             if grid[positionY][positionX-1] == 1:
                 score += 1
+            if score == 153:
+                end = True
+                endGame()
             if grid[positionY][positionX-1] == 3:
                 end = True
                 endGame()
@@ -211,7 +213,6 @@ def moveLeft(event):
     canvas.delete("all")
     arrayToDrawing()
     show_score()
-    playerWin()
 
 def moveUp(event):
     global grid, score, end, win
@@ -223,6 +224,9 @@ def moveUp(event):
             grid[positionY][positionX] = 4
             if grid[positionY-1][positionX] == 1:
                 score += 1
+            if score == 153:
+                end = True
+                endGame()
             if grid[positionY-1][positionX] == 3:
                 end = True
                 endGame()
@@ -232,7 +236,6 @@ def moveUp(event):
     canvas.delete("all")
     arrayToDrawing()
     show_score()
-    playerWin()
 
 def moveDown(event):
     global grid, score, end, win
@@ -244,6 +247,9 @@ def moveDown(event):
             grid[positionY][positionX] = 4
             if grid[positionY+1][positionX] == 1:
                 score += 1
+            if score == 153:
+                end = True
+                endGame()
             if grid[positionY+1][positionX] == 3:
                 end = True
                 endGame()
@@ -253,7 +259,6 @@ def moveDown(event):
     canvas.delete("all")
     arrayToDrawing()
     show_score()
-    playerWin()
 
 #-----------------------------IMAGE-----------------------------
 playeR = tk.PhotoImage( file="maleAdventurer_walk1.png" )
@@ -268,7 +273,7 @@ root.bind("<Right>", moveRight)  #RIGHT CLICK
 root.bind("<Up>", moveUp) #Up CLICK
 root.bind("<Down>", moveDown)  #Down CLICK
 
+canvas.pack(expand=True, fill="both")
 enemyMove()
 arrayToDrawing()
-canvas.pack(expand=True, fill="both")
 root.mainloop()
