@@ -85,12 +85,12 @@ def show_score():
     myScore = "Score:"+str(score)
     if end:
         canvas.delete('all')
-        if score != 10:
+        if score != 153:
             gameOver = canvas.create_image(420, 320, image = endgame)
             canvas.create_text(410,440, text = "Your"+" "+myScore, font=("Comic Sans", 25))
         else:
-            gameWin = canvas.create_image(425, 320, image = youWin)
-            canvas.create_text(440,470, text = "You Win!", font=("Comic Sans", 50))
+            gameWin = canvas.create_image(435, 320, image = playWin)
+            p_w = canvas.create_image(450,740, image = youWin)
         
 #-----------------------------MONSTER MOVE-----------------------------
 def indexOfenemy(grid):
@@ -161,12 +161,11 @@ def enemyMove():
                     grid[rIndex][cIndex] = 1
     canvas.delete("all")
     arrayToDrawing()
-    canvas.after(400,enemyMove)
+    canvas.after(500,enemyMove)
     if end:
         endGame()
         show_score()
         
-
 #----------------------------- PLAYER MOVE-----------------------------
 def moveRight(event):
     global grid, score, end,  win
@@ -178,14 +177,14 @@ def moveRight(event):
             grid[positionY][positionX] = 4
             if grid[positionY][positionX+1] == 1:
                 score += 1
-            if score == 153:
-                end = True
-                endGame()
             if grid[positionY][positionX+1] == 3:
                 end = True
                 endGame()
             if not end:
                 grid[positionY][positionX+1] = 2
+            if score == 153:
+                end = True
+                endGame()
         
     canvas.delete("all")
     arrayToDrawing()
@@ -201,14 +200,14 @@ def moveLeft(event):
             grid[positionY][positionX] = 4
             if grid[positionY][positionX-1] == 1:
                 score += 1
-            if score == 153:
-                end = True
-                endGame()
             if grid[positionY][positionX-1] == 3:
                 end = True
                 endGame()
             if not end:
                 grid[positionY][positionX-1] = 2
+            if score == 153:
+                end = True
+                endGame()
 
     canvas.delete("all")
     arrayToDrawing()
@@ -224,14 +223,14 @@ def moveUp(event):
             grid[positionY][positionX] = 4
             if grid[positionY-1][positionX] == 1:
                 score += 1
-            if score == 153:
-                end = True
-                endGame()
             if grid[positionY-1][positionX] == 3:
                 end = True
                 endGame()
             if not end:
                 grid[positionY-1][positionX] = 2
+            if score == 153:
+                end = True
+                endGame()
 
     canvas.delete("all")
     arrayToDrawing()
@@ -247,14 +246,14 @@ def moveDown(event):
             grid[positionY][positionX] = 4
             if grid[positionY+1][positionX] == 1:
                 score += 1
-            if score == 153:
-                end = True
-                endGame()
             if grid[positionY+1][positionX] == 3:
                 end = True
                 endGame()
             if not end:
                 grid[positionY+1][positionX] = 2
+            if score == 153:
+                end = True
+                endGame()
 
     canvas.delete("all")
     arrayToDrawing()
@@ -267,13 +266,14 @@ coins = tk.PhotoImage( file = "coinGold.png" )
 walls = tk.PhotoImage( file = "bestwall.png" )
 endgame = tk.PhotoImage( file = "gameover.png" )
 youWin = tk.PhotoImage( file = "con.png" )
+playWin = tk.PhotoImage( file = "win.png")
 
 root.bind("<Left>", moveLeft) #LEFT CLICK
 root.bind("<Right>", moveRight)  #RIGHT CLICK
 root.bind("<Up>", moveUp) #Up CLICK
 root.bind("<Down>", moveDown)  #Down CLICK
 
-canvas.pack(expand=True, fill="both")
 enemyMove()
 arrayToDrawing()
+canvas.pack(expand=True, fill="both")
 root.mainloop()
