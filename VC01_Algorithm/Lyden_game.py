@@ -63,7 +63,7 @@ def arrayToDrawing():
             else:
                 canvas.create_image(x1+20, y1+20, image = walls)
 
-    canvas.create_text(425,970, text = "Score: "+str(score),fill = "green" ,font=("Comic Sans", 25))
+    canvas.create_text(425,970, text = "Score: "+str(score),font=("Comic Sans", 25))
 
 def player(grid):
     for index1 in range(len(grid)):
