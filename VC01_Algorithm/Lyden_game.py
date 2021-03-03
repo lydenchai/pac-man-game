@@ -79,10 +79,10 @@ def endGame():
     grid = []
     arrayToDrawing()
  
-#-----------------------------PLAYER WIN-----------------------------
+#-----------------------------PLAYER WIN AND LOSE-----------------------------
 def show_score():
     global score,end
-    myScore = "Score:"+str(score)
+    myScore = "Score: "+str(score)
     if end:
         canvas.delete('all')
         if score != 153:
@@ -161,7 +161,7 @@ def enemyMove():
                     grid[rIndex][cIndex] = 1
     canvas.delete("all")
     arrayToDrawing()
-    canvas.after(500,enemyMove)
+    canvas.after(400,enemyMove)
     if end:
         endGame()
         show_score()
@@ -263,7 +263,7 @@ def moveDown(event):
 playeR = tk.PhotoImage( file="maleAdventurer_walk1.png" )
 zombies = tk.PhotoImage( file="zombies.png" )
 coins = tk.PhotoImage( file = "coinGold.png" )
-walls = tk.PhotoImage( file = "bestwall.png" )
+walls = tk.PhotoImage( file = "images.png" )
 endgame = tk.PhotoImage( file = "gameover.png" )
 youWin = tk.PhotoImage( file = "con.png" )
 playWin = tk.PhotoImage( file = "win.png")
