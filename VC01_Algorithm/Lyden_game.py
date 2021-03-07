@@ -135,7 +135,7 @@ def enemyMove():
             if tomove =="left":
                 if grid[rIndex-1][cIndex] == 2:
                     end = True
-                elif grid[rIndex][cIndex-1] != 2 and grid[rIndex][cIndex-1] == 4:
+                elif grid[rIndex][cIndex-1] != 2 and grid[rIndex][cIndex-1] == 4:  
                     grid[rIndex][cIndex-1] = 3
                     grid[rIndex][cIndex] = 4
                 elif grid[rIndex][cIndex-1] != 2 and grid[rIndex][cIndex-1] == 1:
@@ -265,7 +265,7 @@ zombies = tk.PhotoImage( file="zombies.png" )
 coins = tk.PhotoImage( file = "coinGold.png" )
 walls = tk.PhotoImage( file = "images.png" )
 endgame = tk.PhotoImage( file = "gameover.png" )
-youWin = tk.PhotoImage( file = "con.png" )
+youWin = tk.PhotoImage( file = "congrats.png" )
 playWin = tk.PhotoImage( file = "win.png")
 
 root.bind("<Left>", moveLeft) #LEFT CLICK
