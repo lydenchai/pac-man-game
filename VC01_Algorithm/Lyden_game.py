@@ -53,11 +53,11 @@ def arrayToDrawing():
             y1 = (Y * 50)
             y2 = 50 + y1
             if  grid[Y][X] == 1:
-                coin = canvas.create_image(x1+20, y1+20, image = coins) 
+                canvas.create_image(x1+20, y1+20, image = coins) 
             elif grid[Y][X] == 2:
-                player = canvas.create_image(x1+20, y1+20, image = playeR)
+                canvas.create_image(x1+20, y1+20, image = playeR)
             elif grid[Y][X] == 3:
-                monster = canvas.create_image(x1+20, y1+20, image = zombies)
+                canvas.create_image(x1+20, y1+20, image = zombies)
             elif  grid[Y][X] == 4:
                 canvas.create_rectangle(x1,y1,x2,y2, fill = "", outline = "")
             else:
@@ -86,11 +86,11 @@ def show_score():
     if end:
         canvas.delete('all')
         if score != 153:
-            gameOver = canvas.create_image(420, 320, image = endgame)
+            canvas.create_image(420, 320, image = endgame)
             canvas.create_text(410,440, text = "Your"+" "+myScore, font=("Comic Sans", 25))
         else:
-            gameWin = canvas.create_image(435, 320, image = playWin)
-            p_w = canvas.create_image(450,740, image = youWin)
+            canvas.create_image(435, 320, image = playWin)
+            canvas.create_image(450,740, image = youWin)
         
 #-----------------------------MONSTER MOVE-----------------------------
 def indexOfenemy(grid):
