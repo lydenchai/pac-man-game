@@ -5,7 +5,7 @@ import random
 #-----------------------------CONSTANTS-----------------------------
 root = tk.Tk()
 root.title("Lyden_VC01_Game")
-root.geometry("850x1000")
+root.geometry("600x680")
 canvas = tk.Canvas(root)
 
 #-----------------------------VARIABLES-----------------------------
@@ -48,22 +48,22 @@ def arrayToDrawing():
     global score
     for Y in range (len(grid)):
         for X in range  (len(grid[Y])):
-            x1 = (X * 50)
-            x2 = 50 + x1
-            y1 = (Y * 50)
-            y2 = 50 + y1
+            x1 = (X * 33)
+            x2 = 33 + x1
+            y1 = (Y * 33)
+            y2 = 33 + y1
             if  grid[Y][X] == 1:
-                canvas.create_image(x1+20, y1+20, image = coins) 
+                canvas.create_image(x1+35, y1+35, image = coins) 
             elif grid[Y][X] == 2:
-                canvas.create_image(x1+20, y1+20, image = playeR)
+                canvas.create_image(x1+35, y1+35, image = playeR)
             elif grid[Y][X] == 3:
-                canvas.create_image(x1+20, y1+20, image = zombies)
+                canvas.create_image(x1+35, y1+35, image = zombies)
             elif  grid[Y][X] == 4:
                 canvas.create_rectangle(x1,y1,x2,y2, fill = "", outline = "")
             else:
-                canvas.create_image(x1+20, y1+20, image = walls)
+                canvas.create_image(x1+35, y1+35, image = walls)
 
-    canvas.create_text(425,970, text = "Score: "+str(score),font=("Comic Sans", 25))
+    canvas.create_text(300,665, text = "Score: "+str(score),font=("Comic Sans", 20))
 
 def player(grid):
     for index1 in range(len(grid)):
@@ -86,11 +86,11 @@ def show_score():
     if end:
         canvas.delete('all')
         if score != 153:
-            canvas.create_image(420, 320, image = endgame)
-            canvas.create_text(410,440, text = "Your"+" "+myScore, font=("Comic Sans", 25))
+            canvas.create_image(310, 335, image = endgame)
+            canvas.create_text(325,400, text = "Your"+" "+myScore, font=("Comic Sans", 25))
         else:
-            canvas.create_image(435, 320, image = playWin)
-            canvas.create_image(450,740, image = youWin)
+            canvas.create_image(320, 260, image = playWin)
+            canvas.create_image(310,500, image = youWin)
         
 #-----------------------------MONSTER MOVE-----------------------------
 def indexOfenemy(grid):
