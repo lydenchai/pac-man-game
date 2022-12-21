@@ -1,14 +1,11 @@
-#-----------------------------IMPORTS-----------------------------
 import tkinter as tk
 import random
 
-#-----------------------------CONSTANTS-----------------------------
 root = tk.Tk()
-root.title("Lyden_VC01_Game")
+root.title("Pac man game created by Lyden")
 root.geometry("600x680")
 canvas = tk.Canvas(root)
 
-#-----------------------------VARIABLES-----------------------------
 grid= [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 3, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 3, 0],
@@ -35,15 +32,6 @@ end = False
 score = 0
 tomove = []
 
-                #----------NOTE---------#
-                #       0 = walls       #
-                #       1 = coin        #
-                #       2 = player      #
-                #       3 = zombies     #
-                #       4 = space       #
-                #-----------------------#
-
-#-----------------------------FUNCTION-----------------------------
 def arrayToDrawing():
     global score
     for Y in range (len(grid)):
@@ -73,13 +61,11 @@ def player(grid):
 
     return position
 
-#-----------------------------END GAME-----------------------------
 def endGame():
     global grid 
     grid = []
     arrayToDrawing()
  
-#-----------------------------PLAYER WIN AND LOSE-----------------------------
 def show_score():
     global score,end
     myScore = "Score: "+str(score)
@@ -91,8 +77,7 @@ def show_score():
         else:
             canvas.create_image(320, 260, image = playWin)
             canvas.create_image(310,500, image = youWin)
-        
-#-----------------------------MONSTER MOVE-----------------------------
+
 def indexOfenemy(grid):
     indexEnemy = []
     for index in range (len(grid)):
@@ -166,7 +151,6 @@ def enemyMove():
         endGame()
         show_score()
         
-#----------------------------- PLAYER MOVE-----------------------------
 def moveRight(event):
     global grid, score, end,  win
     if not end:
@@ -259,19 +243,18 @@ def moveDown(event):
     arrayToDrawing()
     show_score()
 
-#-----------------------------IMAGE-----------------------------
-playeR = tk.PhotoImage( file="maleAdventurer_walk1.png" )
-zombies = tk.PhotoImage( file="zombies.png" )
-coins = tk.PhotoImage( file = "coinGold.png" )
-walls = tk.PhotoImage( file = "images.png" )
-endgame = tk.PhotoImage( file = "gameover.png" )
-youWin = tk.PhotoImage( file = "congrats.png" )
-playWin = tk.PhotoImage( file = "win.png")
+playeR = tk.PhotoImage( file="./images/maleAdventurer_walk1.png")
+zombies = tk.PhotoImage( file="./images/zombies.png")
+coins = tk.PhotoImage( file ="./images/coinGold.png")
+walls = tk.PhotoImage( file ="./images/images.png")
+endgame = tk.PhotoImage( file ="./images/gameover.png")
+youWin = tk.PhotoImage( file ="./images/congrats.png")
+playWin = tk.PhotoImage( file ="./images/win.png")
 
-root.bind("<Left>", moveLeft) #LEFT CLICK
-root.bind("<Right>", moveRight)  #RIGHT CLICK
-root.bind("<Up>", moveUp) #Up CLICK
-root.bind("<Down>", moveDown)  #Down CLICK
+root.bind("<Left>", moveLeft) #LEFT
+root.bind("<Right>", moveRight) #RIGHT 
+root.bind("<Up>", moveUp) #Up
+root.bind("<Down>", moveDown) #Down
 
 enemyMove()
 arrayToDrawing()
