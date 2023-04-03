@@ -2,7 +2,7 @@ import tkinter as tk
 import random
 
 root = tk.Tk()
-root.title("Pac man game created by Lyden")
+root.title("Pac man game")
 root.geometry("600x680")
 canvas = tk.Canvas(root)
 
@@ -30,7 +30,7 @@ grid= [
 win = False
 end = False
 score = 0
-tomove = []
+moving = []
 
 def arrayToDrawing():
     global score
@@ -87,28 +87,28 @@ def indexOfenemy(grid):
     return indexEnemy
 
 def canMove(grid, r, c):
-    global tomove
-    tomove = []
+    global moving
+    moving = []
     if grid[r][c-1] != 0 and grid[r][c-1] != 3:
-        tomove.append("left")
+        moving.append("left")
     if grid[r][c]+1 != 0 and grid[r][c+1] != 3:
-        tomove.append("right")
+        moving.append("right")
     if grid[r-1][c] != 0  and grid[r-1][c] != 3:
-        tomove.append("up")
+        moving.append("up")
     if grid[r+1][c] != 0 and grid[r+1][c] != 3:
-        tomove.append("down")
-    return tomove
+        moving.append("down")
+    return moving
 
 def enemyMove():
-    global grid, tomove, end
+    global grid, moving, end
     enemyIndex = indexOfenemy(grid)
     for enemy in enemyIndex:
         rIndex = enemy[0]
         cIndex = enemy[1]
         whereToMove = canMove(grid, rIndex, cIndex)
         if len(whereToMove) > 0:
-            tomove = random.choice(whereToMove)
-            if tomove =="right":
+            moving = random.choice(whereToMove)
+            if moving =="right":
                 if grid[rIndex+1][cIndex] == 2:
                     end = True
                 elif grid[rIndex][cIndex+1] !=2 and grid[rIndex][cIndex+1] == 4:
@@ -117,7 +117,7 @@ def enemyMove():
                 elif grid[rIndex][cIndex+1] != 2 and grid[rIndex][cIndex+1] == 1:
                     grid[rIndex][cIndex+1] = 3
                     grid[rIndex][cIndex] = 1
-            if tomove =="left":
+            if moving =="left":
                 if grid[rIndex-1][cIndex] == 2:
                     end = True
                 elif grid[rIndex][cIndex-1] != 2 and grid[rIndex][cIndex-1] == 4:  
@@ -126,7 +126,7 @@ def enemyMove():
                 elif grid[rIndex][cIndex-1] != 2 and grid[rIndex][cIndex-1] == 1:
                     grid[rIndex][cIndex-1] = 3
                     grid[rIndex][cIndex] = 1
-            if tomove =="up":
+            if moving =="up":
                 if grid[rIndex-1][cIndex] == 2:
                     end = True
                 elif grid[rIndex-1][cIndex] !=  2 and grid[rIndex-1][cIndex] == 4:
@@ -135,7 +135,7 @@ def enemyMove():
                 elif grid[rIndex-1][cIndex] != 2 and grid[rIndex-1][cIndex] == 1:
                     grid[rIndex-1][cIndex] = 3
                     grid[rIndex][cIndex] = 1
-            if tomove =="down":
+            if moving =="down":
                 if grid[rIndex+1][cIndex] == 2:
                     end = True
                 elif grid[rIndex+1][cIndex] != 2 and grid[rIndex+1][cIndex] == 4:
